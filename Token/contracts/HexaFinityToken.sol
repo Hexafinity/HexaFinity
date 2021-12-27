@@ -88,7 +88,7 @@ contract HexaFinityToken is Context, IERC20, Ownable {
 
     uint256 public constant DENOMINATOR = 10000;
 
-    address public taxReceiveAddress = 0xa1e8112114CA3bf0a3e3e6D4CDD1b4fbF7ce25b3;
+    address public taxReceiveAddress = 0xae938974e7cee661c83c2e1c58de0243a17a587c;
 
     IUniswapV2Router02 public immutable uniswapV2Router;
     address public immutable uniswapV2Pair;
