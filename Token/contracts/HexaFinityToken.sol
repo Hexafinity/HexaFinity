@@ -68,7 +68,7 @@ contract HexaFinityToken is Context, IERC20, Ownable {
     uint256 private _tFeeTotal;
     uint256 private _tBurnTotal;
 
-    uint256 public _taxFee = 400;
+    uint256 public _taxFee = 120;
     uint256 private _previousTaxFee = _taxFee;
 
     uint256 public _burnFee = 10;
