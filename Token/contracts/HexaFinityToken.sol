@@ -77,7 +77,7 @@ contract HexaFinityToken is Context, IERC20, Ownable {
     uint256 public _swappingFee = 20;
     uint256 private _previousSwappingFee = _swappingFee;
 
-    uint256 public _stakingFee = 5;
+    uint256 public _stakingFee = 3;
     uint256 private _previousStakingFee = _stakingFee;
 
     uint256 public _unstakingFee = 20;
