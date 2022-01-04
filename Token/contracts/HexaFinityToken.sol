@@ -14,40 +14,52 @@ contract HexaFinityToken is Context, IERC20, Ownable {
     struct RValuesStruct {
         uint256 rAmount;
         uint256 rTransferAmount;
-        uint256 rFee;
+        uint256 rTax;
         uint256 rBurn;
+        uint256 rHolder;
         uint256 rSwapping;
         uint256 rStaking;
         uint256 rUnstaking;
-        uint256 rLiquidity;
+        uint256 rAddingLP;
+        uint256 rRemovingLP;
+        uint256 rYieldEarned;
     }
 
     struct TValuesStruct {
         uint256 tTransferAmount;
-        uint256 tFee;
+        uint256 tTax;
         uint256 tBurn;
+        uint256 tHolder;
         uint256 tSwapping;
         uint256 tStaking;
         uint256 tUnstaking;
-        uint256 tLiquidity;
+        uint256 tAddingLP;
+        uint256 tRemovingLP;
+        uint256 tYieldEarned;
     }
 
     struct ValuesStruct {
         uint256 rAmount;
         uint256 rTransferAmount;
-        uint256 rFee;
+        uint256 rTax;
         uint256 rBurn;
+        uint256 rHolder;
         uint256 rSwapping;
         uint256 rStaking;
         uint256 rUnstaking;
-        uint256 rLiquidity;
+        uint256 rAddingLP;
+        uint256 rRemovingLP;
+        uint256 rYieldEarned;
         uint256 tTransferAmount;
-        uint256 tFee;
+        uint256 tTax;
         uint256 tBurn;
+        uint256 tHolder;
         uint256 tSwapping;
         uint256 tStaking;
         uint256 tUnstaking;
-        uint256 tLiquidity;
+        uint256 tAddingLP;
+        uint256 tRemovingLP;
+        uint256 tYieldEarned;
     }
 
     mapping(address => uint256) private _rOwned;
@@ -65,14 +77,17 @@ contract HexaFinityToken is Context, IERC20, Ownable {
     uint256 private constant MAX = ~uint256(0);
     uint256 private _tTotal = 6 * 10 ** 11 * 10 ** uint256(_decimals);
     uint256 private _rTotal = (MAX - (MAX % _tTotal));
-    uint256 private _tFeeTotal;
+    uint256 private _tTaxTotal;
     uint256 private _tBurnTotal;
 
-    uint256 public _taxFee = 120;
+    uint256 public _taxFee = 130;
     uint256 private _previousTaxFee = _taxFee;
 
-    uint256 public _burnFee = 10;
+    uint256 public _burnFee = 100;
     uint256 private _previousBurnFee = _burnFee;
+
+    uint256 public _holderFee = 200;
+    uint256 private _previousHolderFee = _holderFee;
 
     uint256 public _swappingFee = 20;
     uint256 private _previousSwappingFee = _swappingFee;
@@ -83,8 +98,14 @@ contract HexaFinityToken is Context, IERC20, Ownable {
     uint256 public _unstakingFee = 20;
     uint256 private _previousUnstakingFee = _unstakingFee;
 
-    uint256 public _liquidityFee = 200;
-    uint256 private _previousLiquidityFee = _liquidityFee;
+    uint256 public _addingLPFee = 1;
+    uint256 private _previousAddingLPFee = _addingLPFee;
+
+    uint256 public _removingLPFee = 20;
+    uint256 private _previousRemovingLPFee = _removingLPFee;
+
+    uint256 public _yieldEarnedFee = 130;
+    uint256 private _previousYieldEarnedFee = _yieldEarnedFee;
 
     uint256 public constant DENOMINATOR = 10000;
 
@@ -179,7 +200,7 @@ contract HexaFinityToken is Context, IERC20, Ownable {
     }
 
     function totalFees() public view returns (uint256) {
-        return _tFeeTotal;
+        return _tTaxTotal;
     }
 
     function totalBurn() public view returns (uint256) {
@@ -192,7 +213,7 @@ contract HexaFinityToken is Context, IERC20, Ownable {
         uint256 rAmount = tAmount * _getRate();
         _rOwned[sender] -= rAmount;
         _rTotal -= rAmount;
-        _tFeeTotal += tAmount;
+        _tTaxTotal += tAmount;
     }
 
     function reflectionFromToken(uint256 tAmount, bool deductTransferFee) public view returns (uint256) {
@@ -239,62 +260,74 @@ contract HexaFinityToken is Context, IERC20, Ownable {
     //to recieve ETH from uniswapV2Router when swaping
     receive() external payable {}
 
-    function _distributeFee(uint256 rFee, uint256 rBurn, uint256 tFee, uint256 tBurn) private {
-        _rTotal -= (rFee + rBurn);
-        _tFeeTotal += tFee;
+    function _distributeFee(uint256 rTax, uint256 rBurn, uint256 tTax, uint256 tBurn) private {
+        _rTotal -= (rTax + rBurn);
+        _tTaxTotal += tTax;
         _tTotal -= tBurn;
         _tBurnTotal += tBurn;
 
-        _rOwned[taxReceiveAddress] += rFee;
+        _rOwned[taxReceiveAddress] += rTax;
         if (_isExcluded[taxReceiveAddress]) {
-            _tOwned[taxReceiveAddress] += tFee;
+            _tOwned[taxReceiveAddress] += tTax;
         }
     }
 
     function _getValues(uint256 tAmount) private view returns (ValuesStruct memory) {
         TValuesStruct memory tvs = _getTValues(tAmount);
-        RValuesStruct memory rvs = _getRValues(tAmount, tvs.tFee, tvs.tBurn, tvs.tSwapping, tvs.tStaking, tvs.tUnstaking, tvs.tLiquidity, _getRate());
+        RValuesStruct memory rvs = _getRValues(tAmount, tvs.tTax, tvs.tBurn, tvs.tHolder, tvs.tSwapping, tvs.tStaking, tvs.tUnstaking, tvs.tAddingLP, tvs.tRemovingLP, tvs.tYieldEarned, _getRate());
 
         return ValuesStruct(
             rvs.rAmount,
             rvs.rTransferAmount,
-            rvs.rFee,
+            rvs.rTax,
             rvs.rBurn,
+            rvs.rHolder,
             rvs.rSwapping,
             rvs.rStaking,
             rvs.rUnstaking,
-            rvs.rLiquidity,
+            rvs.rAddingLP,
+            rvs.rRemovingLP,
+            rvs.rYieldEarned,
             tvs.tTransferAmount,
-            tvs.tFee,
+            tvs.tTax,
             tvs.tBurn,
+            tvs.tHolder,
             tvs.tSwapping,
             tvs.tStaking,
             tvs.tUnstaking,
-            tvs.tLiquidity
+            tvs.tAddingLP,
+            tvs.tRemovingLP,
+            tvs.tYieldEarned
         );
     }
 
     function _getTValues(uint256 tAmount) private view returns (TValuesStruct memory) {
-        uint256 tFee = calculateTaxFee(tAmount);
+        uint256 tTax = calculateTaxFee(tAmount);
         uint256 tBurn = calculateBurnFee(tAmount);
+        uint256 tHolder = calculateHolderFee(tAmount);
         uint256 tSwapping = calculateSwappingFee(tAmount);
         uint256 tStaking = calculateStakingFee(tAmount);
         uint256 tUnstaking = calculateUnstakingFee(tAmount);
-        uint256 tLiquidity = calculateLiquidityFee(tAmount);
-        uint256 tTransferAmount = tAmount - tFee - tBurn - tSwapping - tStaking - tUnstaking - tLiquidity;
-        return TValuesStruct(tTransferAmount, tFee, tBurn, tSwapping, tStaking, tUnstaking, tLiquidity);
+        uint256 tAddingLP = calculateAddingLPFee(tAmount);
+        uint256 tRemovingLP = calculateRemovingLPFee(tAmount);
+        uint256 tYieldEarned = calculateYieldEarnedFee(tAmount);
+        uint256 tTransferAmount = tAmount - tTax - tBurn - tHolder - tSwapping - tStaking - tUnstaking - tAddingLP - tRemovingLP - tYieldEarned;
+        return TValuesStruct(tTransferAmount, tTax, tBurn, tHolder, tSwapping, tStaking, tUnstaking, tAddingLP, tRemovingLP, tYieldEarned);
     }
-
-    function _getRValues(uint256 _tAmount, uint256 _tFee, uint256 _tBurn, uint256 _tSwapping, uint256 _tStaking, uint256 _tUnstaking, uint256 _tLiquidity, uint256 _currentRate) private view returns (RValuesStruct memory) {
+    
+    function _getRValues(uint256 _tAmount, uint256 _tTax, uint256 _tBurn, uint256 _tHolder, uint256 _tSwapping, uint256 _tStaking, uint256 _tUnstaking, uint256 _tAddingLP, uint256 _tRemovingLP, uint256 _tYieldEarned, uint256 _currentRate) private view returns (RValuesStruct memory) {
         uint256 _rAmount = _tAmount * _currentRate;
-        uint256 _rFee = _tFee * _currentRate;
+        uint256 _rTax = _tTax * _currentRate;
         uint256 _rBurn = _tBurn * _currentRate;
+        uint256 _rHolder = _tHolder * _currentRate;
         uint256 _rSwapping = _tSwapping * _currentRate;
         uint256 _rStaking = _tStaking * _currentRate;
         uint256 _rUnstaking = _tUnstaking * _currentRate;
-        uint256 _rLiquidity = _tLiquidity * _currentRate;
-        uint256 _rTransferAmount = _rAmount - _rFee - _rLiquidity - _rBurn - _rSwapping - _rStaking - _rUnstaking;
-        return RValuesStruct(_rAmount, _rTransferAmount, _rFee, _rBurn, _rSwapping, _rStaking, _rUnstaking, _rLiquidity);
+        uint256 _rAddingLP = _tAddingLP * _currentRate;
+        uint256 _rRemovingLP = _tRemovingLP * _currentRate;
+        uint256 _rYieldEarned = _tYieldEarned * _currentRate;
+        uint256 _rTransferAmount = _rAmount - _rTax - _rBurn - _rHolder - _rSwapping - _rStaking - _rUnstaking - _rAddingLP - _rRemovingLP - _rYieldEarned;
+        return RValuesStruct(_rAmount, _rTransferAmount, _rTax, _rBurn, _rHolder, _rSwapping, _rStaking, _rUnstaking, _rAddingLP, _rRemovingLP, _rYieldEarned);
     }
 
     function _getRate() private view returns (uint256) {
@@ -314,9 +347,11 @@ contract HexaFinityToken is Context, IERC20, Ownable {
         return (rSupply, tSupply);
     }
 
-    function _takeLiquidity(uint256 rLiquidity, uint256 tLiquidity) private {
+    function _takeLiquidity(uint256 rAddingLP, uint256 rRemovingLP, uint256 tAddingLP, uint256 tRemovingLP) private {
+        uint256 rLiquidity = rAddingLP + rRemovingLP;
         _rOwned[address(this)] += rLiquidity;
         if (_isExcluded[address(this)])
+            uint256 tLiquidity = tAddingLP + tRemovingLP;
             _tOwned[address(this)] += tLiquidity;
     }
 
@@ -326,6 +361,10 @@ contract HexaFinityToken is Context, IERC20, Ownable {
 
     function calculateBurnFee(uint256 _amount) private view returns (uint256) {
         return _amount * _burnFee / DENOMINATOR;
+    }
+
+    function calculateHolderFee(uint256 _amount) private view returns (uint256) {
+        return _amount * _holderFee / DENOMINATOR;
     }
 
     function calculateSwappingFee(uint256 _amount) private view returns (uint256) {
@@ -340,33 +379,49 @@ contract HexaFinityToken is Context, IERC20, Ownable {
         return _amount * _unstakingFee / DENOMINATOR;
     }
 
-    function calculateLiquidityFee(uint256 _amount) private view returns (uint256) {
-        return _amount * _liquidityFee / DENOMINATOR;
+    function calculateAddingLPFee(uint256 _amount) private view returns (uint256) {
+        return _amount * _addingLPFee / DENOMINATOR;
+    }
+
+    function calculateRemovingLPFee(uint256 _amount) private view returns (uint256) {
+        return _amount * _removingLPFee / DENOMINATOR;
+    }
+    
+    function calculateYieldEarnedFee(uint256 _amount) private view returns (uint256) {
+        return _amount * _yieldEarnedFee / DENOMINATOR;
     }
 
     function removeAllFee() private {
         _previousTaxFee = _taxFee;
         _previousBurnFee = _burnFee;
-        _previousLiquidityFee = _liquidityFee;
+        _previousHolderFee = _holderFee;
         _previousSwappingFee = _swappingFee;
         _previousStakingFee = _stakingFee;
         _previousUnstakingFee = _unstakingFee;
+        _previousAddingLPFee = _addingLPFee;
+        _previousRemovingLPFee = _removingLPFee;
+        _previousYieldEarnedFee = _yieldEarnedFee;
         _taxFee = 0;
-        _liquidityFee = 0;
         _burnFee = 0;
+        _holderFee = 0;
         _swappingFee = 0;
         _stakingFee = 0;
         _unstakingFee = 0;
+        _addingLPFee = 0;
+        _removingLPFee = 0;
+        _yieldEarnedFee = 0;
     }
 
     function restoreAllFee() private {
         _taxFee = _previousTaxFee;
-        _liquidityFee = _previousLiquidityFee;
         _burnFee = _previousBurnFee;
+        _holderFee = _previousHolderFee;
         _swappingFee = _previousSwappingFee;
         _stakingFee = _previousStakingFee;
         _unstakingFee = _previousUnstakingFee;
-
+        _addingLPFee = _previousAddingLPFee;
+        _removingLPFee = _previousRemovingLPFee;
+        _yieldEarnedFee = _previousYieldEarnedFee;
     }
 
     function isExcludedFromFee(address account) public view returns (bool) {
@@ -478,8 +533,8 @@ contract HexaFinityToken is Context, IERC20, Ownable {
         }
 
         ValuesStruct memory vs = _getValues(amount);
-        _takeLiquidity(vs.rLiquidity, vs.tLiquidity);
-        _distributeFee(vs.rFee, vs.rBurn, vs.tFee, vs.tBurn);
+        _takeLiquidity(vs.rAddingLP, vs.rRemovingLP, vs.tAddingLP, vs.tRemovingLP);
+        _distributeFee(vs.rTax, vs.rBurn, vs.tTax, vs.tBurn);
 
         if (_isExcluded[sender] && !_isExcluded[recipient]) {
             _transferFromExcluded(sender, recipient, amount, vs);
@@ -535,11 +590,14 @@ contract HexaFinityToken is Context, IERC20, Ownable {
     function enableAllFees() external onlyOwner() {
         restoreAllFee();
         _previousTaxFee = _taxFee;
-        _previousBurnFee = _taxFee;
+        _previousBurnFee = _burnFee;
+        _previousHolderFee = _holderFee;
         _previousSwappingFee = _swappingFee;
         _previousStakingFee = _stakingFee;
         _previousUnstakingFee = _unstakingFee;
-        _previousLiquidityFee = _liquidityFee;
+        _previousAddingLPFee = _addingLPFee;
+        _previousRemovingLPFee = _removingLPFee;
+        _previousYieldEarnedFee = _yieldEarnedFee;
         setSwapAndLiquifyEnabled(true);
     }
 
@@ -565,12 +623,16 @@ contract HexaFinityToken is Context, IERC20, Ownable {
         emit SwapAndLiquifyEnabledUpdated(_enabled);
     }
 
+
     function setTaxFee(uint256 taxFee) external onlyOwner {
         _taxFee = taxFee;
     }
 
     function setBurnFee(uint256 burnFee) external onlyOwner {
         _burnFee = burnFee;
+    }
+    function setHolderFee(uint256 holderFee) external onlyOwner {
+        _holderFee = holderFee;
     }
 
     function setSwappingFee(uint256 swappingFee) external onlyOwner {
@@ -585,11 +647,18 @@ contract HexaFinityToken is Context, IERC20, Ownable {
         _unstakingFee = unstakingFee;
     }
 
-    function setLiquidityFee(uint256 liquidityFee) external onlyOwner {
-        _liquidityFee = liquidityFee;
+    function setAddingLPFee(uint256 addingLPFee) external onlyOwner {
+        _addingLPFee = addingLPFee;
     }
 
+    function setRemovingLPFee(uint256 removingLPFee) external onlyOwner {
+        _removingLPFee = removingLPFee;
+    }
 
+    function setYieldEarnedFee(uint256 yieldEarnedFee) external onlyOwner {
+        _yieldEarnedFee = yieldEarnedFee;
+    }
+    
     event MinTokensBeforeSwapUpdated(uint256 minTokensBeforeSwap);
     event SwapAndLiquifyEnabledUpdated(bool enabled);
     event SwapAndLiquify(
