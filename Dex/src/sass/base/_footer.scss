@@ -1,0 +1,411 @@
+.footer {
+    color: rgb(255, 255, 255);
+    background: #212529;
+    padding: 32px 16px;
+    transition: padding-left 0.2s ease 0s;
+    z-index: 10;
+}
+
+.footer-content {
+    display: grid;
+    max-width: 1120px;
+    margin: 0px auto;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+        "footer-info footer-info"
+        "about about"
+        "product product"
+        "community .";
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    border-radius: 16px;
+    padding: 24px;
+    background: #3c3c3c;
+    margin-bottom: 24px;
+    grid-area: footer-info / footer-info / footer-info / footer-info;
+}
+
+.footer-info-left {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-bottom: 24px;
+
+    .footer-info-top {
+        display: grid;
+        grid-template-columns: 38px 1fr;
+        grid-template-areas:
+            "logo bsw-title"
+            "logo bsw-value";
+        column-gap: 8px;
+        position: relative;
+        
+        .logo {
+            width: 38px;
+            grid-area: logo / logo / logo / logo;
+        }
+
+        .title {
+            display: block;
+            color: #89c438;
+            vertical-align: middle;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 18px;
+        }
+
+        .price {
+            display: block;
+            color: rgb(255, 255, 255);
+            vertical-align: middle;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 19px;
+        }
+    }
+
+    .footer-info-bottom {
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        gap: 8px;
+
+        .logo2 {
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: #dcdcdc;
+            border-radius: 50%;
+            box-shadow: none;
+            border: 0px;
+            cursor: pointer;
+            transition: opacity 0.3s ease 0s;
+        }
+
+        .link {
+            -webkit-box-align: center;
+            align-items: center;
+            border: 0px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            font-family: inherit;
+            font-weight: 600;
+            -webkit-box-pack: center;
+            justify-content: center;
+            letter-spacing: 0.03em;
+            line-height: 1;
+            opacity: 1;
+            outline: 0px;
+            transition: background-color 0.2s ease 0s, opacity 0.2s ease 0s;
+            height: 32px;
+            font-size: 12px;
+            padding: 0px 8px;
+            background-color: rgb(249, 59, 93);
+            color: white;
+        }
+    }
+}
+
+.footer-info-right {
+    -webkit-box-flex: initial;
+    flex-grow: initial;
+}
+
+.footer-info-item {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    line-height: 18px;
+}
+
+.footer-info-item:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+.footer-info-label {
+    font-size: 12px;
+    width: 140px;
+    min-width: 140px;
+    color: #c3c3c3;
+    font-weight: bold;
+}
+
+.footer-info-price {
+    font-size: 12px;
+    color: rgb(255, 255, 255);
+    padding-left: 4px;
+    font-weight: bold;
+}
+
+.toggle-about {
+    grid-area: about / about / about;
+}
+
+.toggle-products {
+    grid-area: product / product / product;
+}
+
+.footer-community {
+    grid-area: community / community / community;
+    margin-top: 8px;
+}
+
+.trigger {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-bottom: 16px;
+
+    h4 {
+        font-size: 16px;
+        color: rgb(255, 255, 255);
+        margin-bottom: 0;
+    }
+}
+
+.toggle-title {
+    .closed {
+        overflow: hidden;
+        transform: scaleY(0);
+        transform-origin: center top;
+        height: 0px;
+        opacity: 0;
+        transition: transform 0.3s ease 0s, opacity 0.3s ease 0s, height 0.3s ease 0s;
+        padding-bottom: 0px;
+    }
+
+    .opened {
+        overflow: hidden;
+        transform: scaleY(1);
+        transform-origin: center top;
+        opacity: 1;
+        transition: transform 0.3s ease 0s, opacity 0.3s ease 0s, height 0.3s ease 0s;
+        padding-bottom: 16px;
+    }
+}
+
+.footer-menu-item {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: #c3c3c3;
+    line-height: 18px;
+
+    > a {
+        transition: opacity 0.3s ease 0s;
+    }
+
+    > a:hover {
+        opacity: 0.65;
+    }
+}
+
+.footer-community .title {
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+    margin-bottom: 16px;
+}
+
+.footer-community-content {
+    display: flex;
+    margin: 0px -4px;
+}
+
+.footer-community-item {
+    width: 20px;
+    height: 20px;
+    margin: 0px 4px;
+    transition: opacity 0.3s ease 0s;
+
+    &:hover {
+        opacity: 0.65;
+    }
+
+    a {
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        width: fit-content;
+    }
+}
+
+/* popup */
+.drop-down-inner {
+    .icon {
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        width: 100%;
+        font-size: 12px;
+        line-height: 18px;
+        color: #fff;
+        user-select: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    span {
+        display: block;
+        font-size: 12px;
+        line-height: 18px;
+        color: #fff;
+        margin-bottom: 8px;
+    }
+
+    .icon > div {
+        border-radius: 50%;
+        margin-right: 8px;
+        overflow: hidden;
+        width: 14px;
+        height: 14px;
+    }
+}
+
+.drop-down-inner .icon:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+.drop-down-inner > div {
+    position: relative;
+    border-radius: 8px;
+    padding: 8px;
+    background-color: #888;
+    bottom: 32px;
+    left: 100%;
+    transform: translateX(-40%);
+}
+
+.footer-community-popup .drop-down-inner {
+    display: none;
+    position: absolute;
+    padding-top: 0px;
+    padding-bottom: 8px;
+    bottom: -5px;
+    left: -24px;
+    transform: translateX(-50%);
+    z-index: 50;
+}
+
+.drop-down-inner > div::before {
+    display: block;
+    content: "";
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    bottom: -4px;
+    left: 28px;
+    transform: translateX(-50%) rotate(45deg);
+    background-color: #888;
+}
+
+.footer-community-popup:hover .drop-down-inner {
+    display: block;
+}
+
+@include mq(576px) {
+    .footer-content {
+        grid-template-columns: repeat(3, minmax(110px, 1fr));
+        grid-template-areas:
+            "footer-info footer-info footer-info"
+            "about product community";
+    }
+
+    .footer-info-label {
+        width: 120px;
+        min-width: 120px;
+    }
+
+    .toggle-title {
+        .closed {
+            padding-bottom: 0px;
+            height: auto;
+            opacity: 1;
+            transform: scaleY(1);
+        }
+
+        .opened {
+            padding-bottom: 0;
+        }
+    }
+
+    .footer-community {
+        margin-top: 24px;
+    }
+}
+
+@include mq(852px) {
+    .footer-content {
+        grid-template-columns: 338px minmax(0px, 64px) repeat(3, minmax(110px, 1fr));
+        grid-template-areas:
+            "footer-info . about product community";
+    }
+}
+
+@include mq(968px) {
+    .footer-content {
+        grid-template-columns: repeat(3, minmax(110px, 1fr));
+        grid-template-areas:
+            "footer-info footer-info footer-info"
+            "about product community";
+    }
+}
+
+@include mq(1080px) {
+    .footer-content {
+        grid-template-columns: 338px minmax(0px, 64px) repeat(3, minmax(110px, 1fr));
+        grid-template-areas:
+            "footer-info . about product community";
+    }
+
+    .footer-info {
+        margin-bottom: 0px;
+    }
+}
+
+@include mq(1200px) {
+    .footer-content {
+        grid-template-columns: 424px minmax(0px, 64px) repeat(3, minmax(110px, 1fr)) 132px;
+        grid-template-areas:
+            "footer-info . about product community";
+    }
+
+    .footer-info {
+        flex-direction: row;
+        -webkit-box-pack: initial;
+        justify-content: initial;
+    }
+
+    .footer-info-left {
+        flex-direction: column;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        width: 142px;
+        min-width: 142px;
+        margin-right: 24px;
+        margin-bottom: 0px;
+
+        .footer-info-top {
+            column-gap: 16px;
+        }
+    }
+
+    .footer-info-right {
+        -webkit-box-flex: 1;
+        flex-grow: 1;
+    }
+
+    .footer-community {
+        margin-top: 0px;
+    }
+}

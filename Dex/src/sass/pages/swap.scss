@@ -1,0 +1,747 @@
+.app-hero {
+    width: 100%;
+    max-width: 512px;
+}
+
+.app-hero__title {
+    font-weight: 600;
+    font-size: 32px;
+    color: #fff;
+    font-feature-settings: "liga" off;
+    margin: 0 0 16px;
+}
+
+.bg-background {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 110px 16px 32px;
+    -webkit-box-align: center;
+    align-items: center;
+    flex: 1 1 0%;
+    overflow: hidden auto;
+    z-index: 1;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.app-hero__subtitle {
+    font-weight: 300;
+    font-size: 16px;
+    font-feature-settings: "liga" off;
+    color: #fff;
+    line-height: 1.4;
+
+    & + a {
+        display: block;
+        color: #a2e93f;
+        font-size: 16px;
+        vertical-align: middle;
+        font-weight: 400;
+        line-height: 1.4;
+        transition: opacity 0.3s ease 0s;
+
+        &:hover {
+            opacity: .8;
+        }
+    }
+}
+
+.card-body {
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    max-width: 512px;
+    width: 100%;
+    z-index: 5;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.card-nav {
+    margin-left: 24px;
+    margin-right: 24px;
+    display: flex;
+    padding-bottom: 5px;
+    overflow-y: auto;
+    scrollbar-color: #55657e #21293a;
+    scrollbar-width: thin;
+
+    a {
+        padding: 15px 10px;
+        font-weight: 600;
+        font-size: 13px;
+        color: #212529;
+
+        &.selected {
+            background: #ffdb1c;
+            border-radius: 0 0 8px 8px;
+        }
+    }
+}
+
+.swap {
+    .app-hero > div {
+        margin-bottom: 24px;
+    }
+
+    .app-hero__subtitle {
+        line-height: 1.5;
+    }
+}
+
+.app-hero-withdraw {
+    width: 100%;
+    max-width: 512px;
+    background: linear-gradient(269.1deg,#1263f1,#f93b5d);
+    border-radius: 16px;
+    margin-bottom: 32px;
+    overflow: hidden;
+    padding: 16px;
+    position: relative;
+
+    .app-hero-withdraw-title {
+        color: hsla(0,0%,100%,.64);
+        display: flex;
+        align-items: center;
+
+        span {
+            display: block;
+        }        
+    }
+
+    b {
+        display: block;
+        color: #fff;
+    }
+
+    button {
+        -webkit-box-align: center;
+        align-items: center;
+        border: 0px;
+        border-radius: 8px;
+        cursor: pointer;
+        display: inline-flex;
+        font-family: inherit;
+        font-weight: 600;
+        -webkit-box-pack: center;
+        justify-content: center;
+        letter-spacing: 0.03em;
+        line-height: 1;
+        opacity: 1;
+        outline: 0px;
+        transition: background-color 0.2s ease 0s, opacity 0.2s ease 0s;
+        height: 40px;
+        font-size: 14px;
+        padding: 0px 16px;
+        background-color: rgb(29, 200, 114);
+        color: white;
+
+        &.tally-button--disabled {
+            background-color: rgb(200, 212, 230);
+            border-color: rgb(200, 212, 230);
+            box-shadow: none;
+            color: rgb(112, 141, 183);
+            cursor: not-allowed;
+        }
+    }
+
+    .separator {
+        display: flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        align-items: center;
+        align-self: stretch;
+        height: 48px;
+
+        &::before {
+            display: block;
+            content: "";
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            top: 50%;
+            left: -3px;   
+            border-radius: 50%;
+            background: #333;
+            transform: translate(0px, -50%);
+        }
+
+        &::after {
+            display: block;
+            content: "";
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #333;
+            transform: translate(0px, -50%);
+            bottom: auto;
+            top: 50%;
+            right: -3px;
+        }
+    }
+}
+
+.app-hero-withdraw__body {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+}
+
+.app-hero-withdraw__body-left {
+    align-items: center;
+}
+
+.app-hero-withdraw__body-right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-hero-withdraw__body-left--balance {
+    margin-right: 16px;
+}
+
+#swap-page {
+    position: relative;
+    z-index: 5;
+}
+
+.swap-top {
+    padding: 24px;
+
+    > div {
+        flex: 1 1 0%;
+
+        h2 {
+            display: block;
+            vertical-align: middle;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 8px;
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.1;
+            color: rgb(7, 22, 45);
+        }
+
+        span {
+            display: block;
+            color: #212529;
+            vertical-align: middle;
+            font-weight: 400;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+    }
+
+    > button {
+        -webkit-box-align: center;
+        align-items: center;
+        border: 0px;
+        border-radius: 8px;
+        cursor: pointer;
+        display: inline-flex;
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 600;
+        -webkit-box-pack: center;
+        justify-content: center;
+        letter-spacing: 0.03em;
+        line-height: 1;
+        opacity: 1;
+        outline: 0px;
+        transition: background-color 0.2s ease 0s, opacity 0.2s ease 0s;
+        height: 48px;
+        background-color: transparent;
+        box-shadow: none;
+        padding: 0px;
+        width: 48px;
+
+        &:hover {
+            opacity: .8;
+        }
+    }
+}
+
+.swap-body {
+    padding: 24px;
+}
+
+.swap-exchange {
+    display: grid;
+    grid-auto-rows: auto;
+    row-gap: 12px;
+
+    &.inc {
+        #swap-currency-input {
+            order: 1;
+        }
+
+        .exchange-icon {
+            order: 2;
+        }
+
+        #swap-currency-output {
+            order: 3;
+        }
+    }
+
+    &.dec {
+        #swap-currency-input {
+            order: 3;
+        }
+
+        .exchange-icon {
+            order: 2;
+        }
+
+        #swap-currency-output {
+            order: 1;
+        }
+    }
+}
+
+.button-group {
+    margin-bottom: 8px;
+    margin-right: 8px;
+
+    button {
+        height: 40px;
+        margin-right: 4px;
+        margin-left: 4px;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.tolarance-input {
+    margin-bottom: 8px;
+
+    input {
+        background-color: transparent;
+        border-radius: 8px;
+        display: block;
+        height: 40px;
+        outline: 0px;
+        padding: 0px 16px;
+        width: 100%;
+        font-size: 14px;
+        font-weight: 600;
+        color: rgb(7, 22, 45);
+        border: 1px solid rgb(229, 234, 242);
+        margin-right: 4px;
+    }
+
+    span {
+        margin-left: 4px;
+    }
+}
+
+#swap-currency-input {
+    display: flex;
+    flex-flow: column nowrap;
+    position: relative;
+    z-index: 1;
+    border-radius: 16px;
+    background-color: transparent;
+    border: 1px solid rgb(229, 234, 242);
+}
+
+.swap .swap-exchange-top {
+    display: flex;
+    flex-flow: row nowrap;
+    -webkit-box-align: center;
+    align-items: center;
+    color: rgb(112, 141, 183);
+    font-size: 0.75rem;
+    line-height: 1rem;
+    padding: 0.75rem 1rem 0px;
+
+    > div {
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        margin: 4px 0px;
+
+        span {
+            display: block;
+            vertical-align: middle;
+            font-weight: 400;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+    }
+}
+
+.swap .swap-exchange-bottom {
+    display: flex;
+    flex-flow: row nowrap;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 0.75rem 0.75rem 0.75rem 1rem;
+
+    input {
+        color: rgb(112, 141, 183);
+        width: 0px;
+        position: relative;
+        font-weight: 600;
+        outline: none;
+        border: none;
+        flex: 1 1 auto;
+        background-color: transparent;
+        font-size: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0px;
+        appearance: textfield;
+    }
+
+    button {
+        -webkit-box-align: center;
+        align-items: center;
+        height: 34px;
+        font-size: 16px;
+        font-weight: 500;
+        background-color: transparent;
+        color: rgb(255, 255, 255);
+        border-radius: 12px;
+        outline: none;
+        cursor: pointer;
+        user-select: none;
+        border: none;
+        padding: 0px 0.5rem;
+    }
+}
+
+.open-currency-select-button {
+    img {
+        width: 24px;
+        height: 24px;
+        box-shadow: rgb(0 0 0 / 8%) 0px 6px 10px;
+        border-radius: 24px;
+    }
+    
+    span {
+        display: block;
+        color: rgb(7, 22, 45);
+        font-size: 16px;
+        vertical-align: middle;
+        line-height: 1.5;
+        font-weight: 600;
+    }
+
+    &:hover {
+        background-color: rgb(242, 246, 252);
+    }
+}
+
+.exchange-icon {
+    display: grid;
+    grid-auto-rows: auto;
+
+    > div {
+        flex-wrap: wrap;
+        -webkit-box-pack: center;
+        justify-content: center;
+        box-sizing: border-box;
+        margin: 0px;
+        min-width: 0px;
+        width: 100%;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+    }
+
+    button {
+        -webkit-box-align: center;
+        align-items: center;
+        border: 0px;
+        border-radius: 8px;
+        cursor: pointer;
+        display: inline-flex;
+        font-family: inherit;
+        font-weight: 600;
+        -webkit-box-pack: center;
+        justify-content: center;
+        letter-spacing: 0.03em;
+        line-height: 1;
+        opacity: 1;
+        outline: 0px;
+        transition: background-color 0.2s ease 0s, opacity 0.2s ease 0s;
+        height: 40px;
+        font-size: 14px;
+        padding: 0;
+        background-color: rgb(228, 239, 255);
+        box-shadow: none;
+        color: rgb(18, 99, 241);
+
+        &:hover {
+            opacity: .8;
+        }
+    }
+}
+
+#swap-currency-output {
+    display: flex;
+    flex-flow: column nowrap;
+    position: relative;
+    z-index: 1;
+    border-radius: 16px;
+    background-color: transparent;
+    border: 1px solid rgb(229, 234, 242);
+}
+
+.swap-action button {
+    -webkit-box-align: center;
+    align-items: center;
+    border: 0px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    -webkit-box-pack: center;
+    justify-content: center;
+    letter-spacing: 0.03em;
+    line-height: 1;
+    opacity: 1;
+    outline: 0px;
+    transition: background-color 0.2s ease 0s, opacity 0.2s ease 0s;
+    height: 48px;
+    padding: 0px 24px;
+    background-color: rgb(18, 99, 241);
+    color: white;
+    width: 100%;
+
+    &:hover {
+        opacity: .8;
+    }
+}
+
+.liquidity-exchange-top {
+    padding: 24px;
+
+    > span {
+        display: block;
+        font-size: 16px;
+        vertical-align: middle;
+        font-weight: 400;
+        line-height: 1.5;
+        margin-top: 16px;
+
+        a {
+            -webkit-box-align: center;
+            align-items: center;
+            border: 0px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 600;
+            -webkit-box-pack: center;
+            justify-content: center;
+            letter-spacing: 0.03em;
+            line-height: 1;
+            opacity: 1;
+            outline: 0px;
+            transition: background-color 0.2s ease 0s, opacity 0.2s ease 0s;
+            height: 48px;
+            padding: 0px 24px;
+            background-color: rgb(18, 99, 241);
+            color: white;
+            width: 100%;
+        }
+    }
+}
+
+.liquidity-exchange-bottom {
+    display: grid;
+    grid-auto-rows: auto;
+    row-gap: 24px;
+    padding: 24px;
+    justify-items: center;
+
+    > div {
+        display: grid;
+        grid-auto-rows: auto;
+        row-gap: 12px;
+    }
+
+    .your-liquidity {
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        margin: 4px 0px;
+        width: 100%;
+        display: flex;
+        padding: 0px;
+        -webkit-box-align: center;
+        align-items: center;
+        box-sizing: border-box;
+        min-width: 0px;
+
+        span {
+            display: block;
+            color: rgb(7, 22, 45);
+            font-size: 16px;
+            vertical-align: middle;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+    }
+
+    .connect-liquidity {
+        width: 100%;
+        border-radius: 16px;
+        padding: 40px;
+
+        span {
+            display: block;
+            font-size: 16px;
+            vertical-align: middle;
+            font-weight: 400;
+            line-height: 1.5;
+            text-align: center;
+        }
+    }
+
+    .join-liquidity span {
+        display: block;
+        color: rgb(7, 22, 45);
+        vertical-align: middle;
+        font-weight: 400;
+        line-height: 1.5;
+        font-size: 14px;
+    }
+
+    #import-pool-link {
+        color: #89c438;
+
+        &:hover {
+            opacity: .8;
+        }
+    }
+}
+
+.liquidity-top {
+    flex: 1 1 0%;
+
+    h2 {
+        display: block;
+        font-size: 20px;
+        vertical-align: middle;
+        margin-bottom: 8px;
+        font-weight: 600;
+        line-height: 1.1;
+        color: rgb(7, 22, 45)
+    }
+
+    span {
+        display: block;
+        vertical-align: middle;
+        font-weight: 400;
+        line-height: 1.5;
+        font-size: 14px;
+    }
+}
+
+.exchange-transactions {
+    padding: 24px;
+}
+
+.exchange-transactions__title {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e5eaf2;
+
+    span {
+        display: block;
+        font-size: 16px;
+        vertical-align: middle;
+        font-weight: 600;
+        line-height: 1.5;
+        margin-bottom: 8px
+    }
+}
+
+@include mq(370px) {
+    .bg-background {
+        background-size: auto;
+    }
+}
+
+@include mq(576px) {
+    .app-hero__title {
+        white-space: nowrap;
+        text-align: center;
+        font-size: 40px;
+        font-weight: 700;
+    }
+
+    .app-hero__subtitle {
+        text-align: center;
+
+        & + a {
+            text-align: center;
+        }
+    }
+
+    .card-nav a {
+        padding: 15px 24px;
+        font-size: 16px;
+    }
+
+    .app-hero-withdraw {
+        background: linear-gradient(269.1deg,#1263f1,#f93b5d) no-repeat 100%,0 0;
+        padding: 0 16px;
+
+        .separator {
+            position: relative;
+            height: auto;
+
+            &::before, &::after {
+                transform: translate(-50%, 0px);
+            }
+
+            &::before {
+                top: -3px;
+                left: 50%;
+            }
+
+            &::after {
+                inset: auto auto -3px 50%;
+            }
+        }
+    }
+
+    .app-hero-withdraw__body {
+        grid-template-columns: 240px 48px 208px;
+        height: 64px;
+    }
+}
+
+@include mq(968px) {
+    .bg-background {
+        min-height: 90vh;
+    }
+
+    .swap-top > div h2 {
+        font-size: 20px;
+    }
+
+    .liquidity-top h2 {
+        font-size: 20px;
+    }
+}

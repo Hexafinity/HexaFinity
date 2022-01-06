@@ -1,0 +1,39 @@
+.badge {
+    display: inline-flex;
+    padding: 2px 8px;
+    color: #fff;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 8px;
+    line-height: 9px;
+}
+
+.badge-new {
+    background: #1dc872;
+}
+
+.badge-win {
+    background: $third-color;
+}
+
+.badge-beta {
+    background: #7412f1;
+}
+
+.badge-soon {
+    background: #a2e93f;
+    color: $primary-color;
+}
+
+.badge-hot {
+    background: rgb(249, 59, 93);
+    color: rgb(255, 255, 255);
+}
+
+.badge-boosted {
+    background: rgb(116, 18, 241);
+}
+
+.badge-active {
+    background: rgb(228, 239, 255);
+}

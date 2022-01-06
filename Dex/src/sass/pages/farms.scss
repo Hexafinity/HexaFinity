@@ -1,0 +1,715 @@
+.toolbox-item-havest {
+    display: flex;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    grid-area: harvestAll / harvestAll / harvestAll / harvestAll;
+    margin-top: 8px;
+    min-width: 200px;
+
+    button {
+        -webkit-box-align: center;
+        align-items: center;
+        border: 0px;
+        border-radius: 8px;
+        cursor: pointer;
+        display: inline-flex;
+        font-family: inherit;
+        font-weight: 600;
+        -webkit-box-pack: center;
+        justify-content: center;
+        letter-spacing: 0.03em;
+        line-height: 1;
+        opacity: 1;
+        outline: 0px;
+        transition: background-color 0.2s ease 0s, opacity 0.2s ease 0s;
+        height: 40px;
+        font-size: 14px;
+        padding: 0px 16px;
+        background-color: rgb(29, 200, 114);
+        color: white;
+
+        &:disabled, &.tally-button--disabled {
+            background-color: rgb(137 196 56 / 80%);
+            border-color: rgb(137 196 56 / 80%);
+            box-shadow: none;
+            color: #fff;
+            cursor: not-allowed;
+        }
+    }
+}
+
+.farms-wrapper {
+    background: rgb(255, 255, 255);
+    border-radius: 16px;
+    margin: 16px 0px;
+    font-size: 14px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.farm-card {
+    display: grid;
+    grid-template-areas:
+        "farm badge info"
+        "apy earned details";
+    padding: 18px 16px;
+    grid-template-columns: minmax(160px, 1fr) 92px 20px;
+    gap: 18px 12px;
+
+    .trigger {
+        margin-bottom: 0;
+    }
+
+    .farm-title {
+        display: block;
+        color: rgb(7, 22, 45);
+        vertical-align: middle;
+        font-weight: 400;
+        line-height: 1.5;
+        font-size: 16px;
+    }
+
+    .badge-wrap {
+        grid-area: badge / badge / badge / badge;
+    }
+
+    .badge {
+        padding: 4px 12px;
+        border-radius: 16px;
+
+        span {
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 1.5;
+            display: block;
+            color: inherit;
+        }
+    }
+
+    .farm {
+        grid-area: farm / farm / farm / farm;
+        min-height: 24px;
+
+        > div:last-child span {
+            color: #212529;
+        }
+    }
+
+    .farm-icon {
+        width: 44px;
+        height: 24px;
+        position: relative;
+        margin-right: 8px;
+
+        > div {
+            width: 24px;
+            height: 24px;
+            position: absolute;
+        }
+
+        > div:first-child {
+            top: 0px;
+            left: 0px;
+            z-index: 2;
+            filter: drop-shadow(rgb(255, 255, 255) 2px 0px 0px);
+        }
+
+        > div:last-child {
+            top: 0px;
+            right: -2px;
+            z-index: 1;
+        }
+
+        img {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+        }
+    }
+
+    .apy {
+        > div:first-child {
+            font-size: 12px;
+            color: #89c438;
+            text-align: left;
+        }
+
+        > div:last-child {
+            min-height: 24px;
+
+            span {
+                display: block;
+                vertical-align: middle;
+                line-height: 1.5;
+                font-size: 18px;
+                margin-right: 4px;
+                color: #89c438;
+                font-weight: 600;
+            }
+        }
+
+        .apy-popup {
+            background: #888;
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: #fff;
+            width: max-content;
+            display: none;
+            max-height: 500px;
+            z-index: 100;
+            position: absolute;
+            bottom: calc(100% + 10px);
+            right: auto;
+            left: -12px;
+            white-space: normal;
+            max-width: 246px;
+            font-size: 12px;
+
+            &::after {
+                content: "";
+                display: block;
+                width: 0px;
+                height: 0px;
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                border-top: 10px solid #888;
+                bottom: 0px;
+                position: absolute;
+                transform: translate(0px, 9px);
+                right: auto;
+                left: 12px;
+            }
+        }
+
+        .trigger:hover .apy-popup {
+            display: block;
+        }
+    }
+
+    .earned {
+        grid-area: earned / earned / earned / earned;
+
+        > div:first-child {
+            font-size: 12px;
+            color: #89c438;
+            text-align: left;
+        }
+
+        > div:last-child:not(:first-child) {
+            min-height: 24px;
+
+            &:before {
+                display: block;
+                content: "";
+                width: 8px;
+                height: 2px;
+                background: #89c438;
+            }
+        }
+
+        > span {
+            font-size: 12px;
+            line-height: 24px;
+            color: rgb(7, 22, 45);
+        }
+    }
+
+    .details {
+        grid-area: details / details / details / details;
+        min-height: 24px;
+
+        .label {
+            display: none;
+            color: #89c438;
+        }
+
+        &.show svg {
+            transform: rotate(180deg);
+            height: 20px;
+        }
+    }
+
+    .info {
+        grid-area: info / info / info / info;
+        min-height: 24px;
+
+        .info-popup {
+            background: #888;
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: rgb(112, 141, 183);
+            width: max-content;
+            display: none;
+            max-height: 500px;
+            z-index: 100;
+            position: absolute;
+            bottom: calc(100% + 10px);
+            right: -12px;
+            left: auto;
+            white-space: normal;
+            max-width: 246px;
+            font-size: 12px;
+
+            > a {
+                display: flex;
+                -webkit-box-align: center;
+                align-items: center;
+                font-size: 14px;
+                color: #89c438;
+
+                svg {
+                    margin-left: 4px;
+                }
+            }
+
+            > div span {
+                display: block;
+                color: #89c438;
+                font-size: 12px;
+                vertical-align: middle;
+                font-weight: 400;
+                line-height: 1.5;
+
+                &:last-child {
+                    font-size: 16px;
+                    line-height: 120%;
+                    margin-bottom: 12px;
+                    font-weight: bold;
+                    color: rgb(255, 255, 255);
+                }
+            }
+
+            &:after {
+                content: "";
+                display: block;
+                width: 0px;
+                height: 0px;
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                border-top: 10px solid #888;
+                bottom: 0px;
+                position: absolute;
+                transform: translate(0px, 9px);
+                right: 12px;
+                left: auto;
+            }
+        }
+
+        &:hover .info-popup {
+            display: block;
+        }
+    }
+}
+
+.farms-wrapper > div:not(:last-child) {
+    border-bottom: 2px solid rgb(242, 246, 252);
+}
+
+.apr {
+    grid-area: apr / apr / apr / apr;
+
+    > div:first-child {
+        font-size: 12px;
+        color: #89c438;
+        text-align: left;
+    }
+
+    > div:last-child {
+        min-height: 24px;
+
+        span {
+            display: block;
+            vertical-align: middle;
+            line-height: 1.5;
+            font-size: 18px;
+            margin-right: 4px;
+            color: #89c438;
+            font-weight: 600;
+        }
+    }
+}
+
+.liquidity {
+    grid-area: liquidity / liquidity / liquidity / liquidity;
+    display: block;
+
+    > div:first-child {
+        font-size: 12px;
+        color: #89c438;
+        text-align: left;
+    }
+
+    > div:last-child {
+        min-height: 24px;
+
+        > span {
+            color: rgb(7, 22, 45);
+            vertical-align: middle;
+            font-weight: 600;
+            line-height: 1.5;
+            font-size: 16px;
+        }
+    }
+
+    .liquidity-popup {
+        background: #888;
+        padding: 8px 16px;
+        border-radius: 8px;
+        color: #fff;
+        width: max-content;
+        display: none;
+        max-height: 500px;
+        z-index: 100;
+        position: absolute;
+        bottom: calc(100% + 10px);
+        right: auto;
+        left: -12px;
+        white-space: normal;
+        max-width: 246px;
+        font-size: 12px;
+
+        &::after {
+            content: "";
+            display: block;
+            width: 0px;
+            height: 0px;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #888;
+            bottom: 0px;
+            position: absolute;
+            transform: translate(0px, 9px);
+            right: auto;
+            left: 12px;
+        }
+    }
+
+    .trigger {
+        margin-left: 6px;
+        margin-top: 3px;
+    }
+
+    .trigger:hover .liquidity-popup {
+        display: block;
+    }
+}
+
+.exchange {
+    background: rgb(242, 246, 252);
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding: 16px;
+
+    .exchange-left {
+        display: flex;
+        flex-direction: row-reverse;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        -webkit-box-flex: 1;
+        flex-grow: 1;
+        position: relative;
+        padding-bottom: 16px;
+        border-bottom: 2px solid rgb(221, 229, 241);
+
+        > a {
+            -webkit-box-align: center;
+            align-items: center;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 600;
+            -webkit-box-pack: center;
+            justify-content: center;
+            letter-spacing: 0.03em;
+            line-height: 1;
+            opacity: 1;
+            outline: 0px;
+            transition: background-color 0.2s ease 0s, opacity 0.2s ease 0s;
+            height: 48px;
+            padding: 0px 24px;
+            background-color: transparent;
+            border: 2px solid #89c438;
+            box-shadow: none;
+            color: #89c438;
+        }
+
+        > div {
+            span {
+                display: block;
+                color: rgb(7, 22, 45);
+                vertical-align: middle;
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 16px;
+
+                &:first-child {
+                    font-size: 12px;
+                    color: #89c438;
+                }
+
+                &:last-child {
+                    font-size: 12px;
+                    line-height: 18px;
+                    color: #89c438;
+                }
+            }
+        }
+    }
+
+    .exchange-center {
+        display: flex;
+        flex-direction: row-reverse;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        -webkit-box-flex: 1;
+        flex-grow: 1;
+        position: relative;
+        padding-top: 16px;
+        border-bottom: 2px solid rgb(221, 229, 241);
+        padding-bottom: 16px;
+
+        > div {
+            display: flex;
+            -webkit-box-pack: justify;
+            justify-content: space-between;
+            -webkit-box-align: center;
+            align-items: center;
+            margin-right: 0px;
+
+            button {
+                -webkit-box-align: center;
+                align-items: center;
+                border: 0px;
+                border-radius: 8px;
+                cursor: pointer;
+                display: inline-flex;
+                font-family: inherit;
+                font-size: 16px;
+                font-weight: 600;
+                -webkit-box-pack: center;
+                justify-content: center;
+                letter-spacing: 0.03em;
+                line-height: 1;
+                opacity: 1;
+                outline: 0px;
+                transition: background-color 0.2s ease 0s, opacity 0.2s ease 0s;
+                height: 48px;
+                padding: 0px 24px;
+                background-color: #89c438;
+                color: white;
+                width: 100%;
+            }
+        }
+    }
+
+    .exchange-right {
+        display: flex;
+        flex-direction: row-reverse;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        -webkit-box-flex: 1;
+        flex-grow: 1;
+        position: relative;
+        padding-top: 16px;
+
+        > button {
+            -webkit-box-align: center;
+            align-items: center;
+            border: 0px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 600;
+            -webkit-box-pack: center;
+            justify-content: center;
+            letter-spacing: 0.03em;
+            line-height: 1;
+            opacity: 1;
+            outline: 0px;
+            transition: background-color 0.2s ease 0s, opacity 0.2s ease 0s;
+            height: 48px;
+            padding: 0px 24px;
+            background-color: #89c438;
+            color: white;
+
+            &.tally-button--disabled {
+                opacity: .8;
+            }
+        }
+
+        > div {
+            span {
+                display: block;
+                color: #89c438;
+                vertical-align: middle;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 16px;
+            }
+
+            div {
+                font-size: 16px;
+                color: rgb(7, 22, 45);
+                font-weight: 600;
+            }
+        }
+    }
+    
+    .icon-arrow {
+        width: 32px;
+        height: 10px;
+        position: absolute;
+        left: 50%;
+        bottom: -9px;
+
+        img:first-child {
+            display: none;
+        }
+        img:last-child {
+            display: block;
+        }
+    }
+}
+
+.farm-card-show .apr, .farm-card-show .liquidity, .farm-card-show .exchange {
+    padding: 18px 16px;
+}
+
+.farm-card-show {
+    display: none;
+
+    &.show {
+        display: block;
+    }
+}
+
+@include mq(852px) {
+    .toolbox-item-havest {
+        margin-top: 0;
+        min-width: auto;
+    }
+
+    .farm-card {
+        padding: 18px 32px;
+
+        .apy .apy-popup, .liquidity .liquidity-popup {
+            font-size: 14px;
+        }
+    }
+
+    .farm-card-show .apr, .farm-card-show .liquidity, .farm-card-show .exchange {
+        padding: 18px 32px;
+    }
+
+    .exchange {
+        padding: 24px;
+    }
+}
+
+@include mq(1200px) {
+    .farm-card {
+        grid-template-areas: "badge farm apy apr liquidity earned details info";
+        column-gap: 24px;
+        grid-template-columns: 50px minmax(185px, 1.5fr) minmax(60px, 1.5fr) minmax(60px, 1.5fr) minmax(144px, 1fr) minmax(70px, 1fr) 64px 20px;
+
+        .details .label {
+            display: block;
+        }
+
+        .info .info-popup {
+            font-size: 14px;
+        }
+    }
+
+    .farm-card-show .apr, .farm-card-show .liquidity {
+        display: none;
+    }
+
+    .exchange {
+        flex-direction: row;
+        padding: 16px 32px;
+            
+        .exchange-left {
+            flex-direction: row;
+            -webkit-box-pack: initial;
+            justify-content: initial;
+            padding-bottom: 0px;
+            border-width: 0px;
+
+            > div {
+                margin-left: 24px;
+            }
+        }
+
+        .exchange-center {
+            flex-direction: row;
+            -webkit-box-pack: initial;
+            justify-content: initial;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            border-width: 0px;
+
+            > div {
+                margin-right: 0px;
+                width: 290px;
+            }
+        }
+
+        .exchange-right {
+            flex-direction: row;
+            -webkit-box-pack: initial;
+            justify-content: initial;
+            padding-top: 0px;
+            max-width: 250px;
+
+            > div {
+                margin-left: 24px;
+            }
+        }
+
+        .icon-arrow {
+            width: 24px;
+            height: 24px;
+            inset: 50% 13% auto auto;
+            transform: translateY(-50%);
+
+            img:first-child {
+                display: block;
+            }
+            img:last-child {
+                display: none;
+            }
+        }
+    }
+}
+
+@include mq(1200px, max) {
+    .farm-card {
+        .apr {
+            display: none;
+        }
+
+        .liquidity {
+            display: none;
+        }
+    }
+
+    .apr, .liquidity {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .liquidity .trigger {
+        margin: 0;
+    }
+}

@@ -1,0 +1,37 @@
+@charset 'UTF-8';
+
+@use 'sass:math';
+
+// Mixins
+@import 'mixins/core';
+@import 'mixins/clearfix';
+@import 'mixins/breakpoints';
+
+// Config
+@import 'config/variables';
+@import 'config/helper';
+@import 'config/fonts';
+@import 'config/spacing';
+
+// Plugins CSS
+@import 'plugins/owl-carousel/owl.theme.default';
+@import 'plugins/owl-carousel/owl.carousel';
+
+// Component
+@import 'components/badge';
+@import 'components/sidebar';
+@import 'components/pool-card';
+@import 'components/modal';
+
+// Base
+@import 'base/base';
+@import 'base/type';
+@import 'base/layout';
+@import 'base/header';
+@import 'base/footer';
+
+// Page
+@import 'pages/index';
+@import 'pages/staking';
+@import 'pages/farms';
+@import 'pages/swap';
