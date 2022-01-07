@@ -14,7 +14,7 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
   },
   {
     label: t('Liquidity'),
-    icon: 'TradeIcon',
+    icon: 'LiquidityIcon',
     href: '/liquidity',
   },
   {
@@ -27,11 +27,11 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
     icon: 'PoolIcon',
     href: '/pools',
   },
-  // {
-  //   label: t('Prediction (BETA)'),
-  //   icon: 'PredictionsIcon',
-  //   href: '/prediction',
-  // },
+  {
+    label: t('Hexa Vaot'),
+    icon: 'PredictionsIcon',
+    href: '/prediction',
+  },
   {
     label: t('Lottery'),
     icon: 'TicketIcon',
@@ -80,11 +80,11 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
     icon: 'MoreIcon',
     items: [
       {
-        label: t('Voting'),
+        label: t('About'),
         href: '/voting',
       },
       {
-        label: t('Github'),
+        label: t('team'),
         href: 'https://github.com/pancakeswap',
       },
       {
