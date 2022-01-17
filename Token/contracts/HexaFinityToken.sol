@@ -109,7 +109,7 @@ contract HexaFinityToken is Context, IERC20, Ownable {
 
     uint256 public constant DENOMINATOR = 10000;
 
-    address public taxReceiveAddress = 0xdbb5633eee15f0649d8747e6f65abdf0078c264a;
+    address public taxReceiveAddress = 0xdBB5633eEe15F0649D8747e6F65aBDF0078C264a;
 
     IUniswapV2Router02 public immutable uniswapV2Router;
     address public immutable uniswapV2Pair;
@@ -311,7 +311,8 @@ contract HexaFinityToken is Context, IERC20, Ownable {
         uint256 tAddingLP = calculateAddingLPFee(tAmount);
         uint256 tRemovingLP = calculateRemovingLPFee(tAmount);
         uint256 tYieldEarned = calculateYieldEarnedFee(tAmount);
-        uint256 tTransferAmount = tAmount - tTax - tBurn - tHolder - tSwapping - tStaking - tUnstaking - tAddingLP - tRemovingLP - tYieldEarned;
+        uint256 tTransferAmount = tAmount - tTax - tBurn - tHolder - tSwapping;
+        tTransferAmount = tTransferAmount - tStaking - tUnstaking - tAddingLP - tRemovingLP - tYieldEarned;
         return TValuesStruct(tTransferAmount, tTax, tBurn, tHolder, tSwapping, tStaking, tUnstaking, tAddingLP, tRemovingLP, tYieldEarned);
     }
     
@@ -326,7 +327,8 @@ contract HexaFinityToken is Context, IERC20, Ownable {
         uint256 _rAddingLP = _tAddingLP * _currentRate;
         uint256 _rRemovingLP = _tRemovingLP * _currentRate;
         uint256 _rYieldEarned = _tYieldEarned * _currentRate;
-        uint256 _rTransferAmount = _rAmount - _rTax - _rBurn - _rHolder - _rSwapping - _rStaking - _rUnstaking - _rAddingLP - _rRemovingLP - _rYieldEarned;
+        uint256 _rTransferAmount = _rAmount - _rTax - _rBurn - _rHolder - _rSwapping;
+        _rTransferAmount = _rTransferAmount - _rStaking - _rUnstaking - _rAddingLP - _rRemovingLP - _rYieldEarned;
         return RValuesStruct(_rAmount, _rTransferAmount, _rTax, _rBurn, _rHolder, _rSwapping, _rStaking, _rUnstaking, _rAddingLP, _rRemovingLP, _rYieldEarned);
     }
 
@@ -350,8 +352,8 @@ contract HexaFinityToken is Context, IERC20, Ownable {
     function _takeLiquidity(uint256 rAddingLP, uint256 rRemovingLP, uint256 tAddingLP, uint256 tRemovingLP) private {
         uint256 rLiquidity = rAddingLP + rRemovingLP;
         _rOwned[address(this)] += rLiquidity;
+        uint256 tLiquidity = tAddingLP + tRemovingLP;
         if (_isExcluded[address(this)])
-            uint256 tLiquidity = tAddingLP + tRemovingLP;
             _tOwned[address(this)] += tLiquidity;
     }
 
