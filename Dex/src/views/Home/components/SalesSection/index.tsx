@@ -45,7 +45,7 @@ const SalesSection: React.FC<SalesSectionProps> = (props) => {
           <Text color="textSubtle" mb="24px">
             {bodyTranslatedText}
           </Text>
-          <Flex>
+          {/* <Flex>
             <Link mr="16px" external={primaryButton.external} href={primaryButton.to}>
               <Button>
                 <Text color="card" bold fontSize="16px">
@@ -56,7 +56,7 @@ const SalesSection: React.FC<SalesSectionProps> = (props) => {
             <Link external={secondaryButton.external} href={secondaryButton.to}>
               {t(secondaryButton.text)}
             </Link>
-          </Flex>
+          </Flex> */}
         </Flex>
         <Flex
           height={['192px', null, null, '100%']}

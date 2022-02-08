@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
-import { Flex, Heading, Link, Button } from '@pancakeswap/uikit'
+import { Flex, Heading, Link, Button, Card, Box, CardBody } from '@pancakeswap/uikit'
 import { useWeb3React } from '@web3-react/core'
 import { useTranslation } from 'contexts/Localization'
 import ConnectWalletButton from 'components/ConnectWalletButton'
@@ -85,6 +85,8 @@ const starsImage: CompositeImageProps = {
     { src: 'star-top-r', alt: '3D Star' },
   ],
 }
+const headerHeight = "60px";
+const customHeadingColor = "#7645D9";
 
 const Hero = () => {
   const { t } = useTranslation()
@@ -105,7 +107,7 @@ const Hero = () => {
       >
         <Flex flex="1" flexDirection="column">
           <Heading scale="xxl" color="secondary" mb="24px">
-            {t('The moon is made of pancakes.')}
+            {t('We Find Infinity with every trade.')}
           </Heading>
           <Heading scale="md" mb="24px">
             {t('Trade, earn, and win crypto on the most popular decentralized platform in the galaxy.')}
@@ -115,6 +117,20 @@ const Hero = () => {
             <Link mr="16px" href="/swap">
               <Button variant={!account ? 'secondary' : 'primary'}>{t('Trade Now')}</Button>
             </Link>
+          </Flex>
+          <Flex mt="16px">
+            <Card mr="16px">
+              <Box background={customHeadingColor} p="16px" height={headerHeight}>
+                <Heading size="xl" color="white"> {t('Total value locked')} </Heading>
+              </Box>
+              <CardBody>$ ---</CardBody>
+            </Card>
+            <Card>
+              <Box background={customHeadingColor} p="16px" height={headerHeight}>
+                <Heading size="xl" color="white"> {t('Total trading value')} </Heading>
+              </Box>
+              <CardBody>$ ---</CardBody>
+            </Card>
           </Flex>
         </Flex>
         <Flex
